@@ -1,13 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实用工具与深度内容的结合</title>
+    <!-- 外部资源引入 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a1a1a',
+                        secondary: '#6b7280',
+                        accent: '#0071E3',
+                        'accent-light': 'rgba(0, 113, 227, 0.1)',
+                        premium: '#FF9500',
+                        light: '#f3f4f6',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
+            }
+            .btn-primary {
+                @apply bg-accent text-white px-6 py-2.5 rounded-md hover:bg-accent/90 transition-colors font-medium;
+            }
+            .btn-secondary {
+                @apply bg-white text-primary border border-gray-300 px-6 py-2.5 rounded-md hover:bg-gray-50 transition-colors font-medium;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-primary font-sans">
+    <!-- 导航栏 -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white/95 transition-all duration-300">
+        <div class="container mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-medium text-accent">
+                        <i class="fa fa-cube mr-2"></i>ToolHub
+                    </a>
+                </div>
+                
+                <!-- 桌面端导航 -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-primary hover:text-accent transition-colors">首页</a>
+                    <a href="#tools" class="text-primary hover:text-accent transition-colors">工具</a>
+                    <a href="#blog" class="text-primary hover:text-accent transition-colors">博客</a>
+                    <a href="#" class="text-primary hover:text-accent transition-colors">关于</a>
+                    <button class="login-btn btn-primary">
+                        <i class="fa fa-sign-in mr-1"></i>登录
+                    </button>
+                </nav>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="menu-toggle" class="md:hidden text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- 移动端导航菜单 -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="#" class="text-primary hover:text-accent transition-colors py-2">首页</a>
+                    <a href="#tools" class="text-primary hover:text-accent transition-colors py-2">工具</a>
+                    <a href="#blog" class="text-primary hover:text-accent transition-colors py-2">博客</a>
+                    <a href="#" class="text-primary hover:text-accent transition-colors py-2">关于</a>
+                    <button class="login-btn btn-primary w-full">
+                        <i class="fa fa-sign-in mr-1"></i>登录
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center">
+                <span class="text-accent font-medium">
                     知识 · 工具 · 成长
                 </span>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-tight mt-4">
                     实用工具与<br class="md:hidden">
                     <span class="font-medium">深度内容的结合</span>
                 </h1>
-                <p class="text-secondary text-lg md:text-xl text-balance">
+                <p class="text-secondary text-lg md:text-xl text-balance mt-6 max-w-2xl mx-auto">
                     探索经过实践验证的工具和方法论，提升你的工作效率与认知水平
                 </p>
-                <div class="flex flex-wrap justify-center gap-4 pt-4">
+                <div class="flex flex-wrap justify-center gap-4 pt-8">
                     <a href="#tools" class="btn-primary">
                         探索工具
                     </a>
@@ -61,7 +156,7 @@
                 <!-- 博客1 -->
                 <article class="blog-card bg-white rounded-xl overflow-hidden shadow-sm card-hover">
                     <div class="relative overflow-hidden h-48">
-                        <img src="https://picsum.photos/id/1/600/400" alt="10个提升工作效率的必备工具" class="blog-image w-full h-full object-cover transition-transform duration-500">
+                        <img src="https://picsum.photos/id/1/600/400" alt="10个提升工作效率的必备工具" class="blog-image w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                         <div class="absolute top-4 left-4">
                             <span class="px-3 py-1 bg-light text-primary text-xs rounded-full">效率工具</span>
                         </div>
@@ -89,7 +184,7 @@
                 <!-- 博客2 -->
                 <article class="blog-card bg-white rounded-xl overflow-hidden shadow-sm card-hover">
                     <div class="relative overflow-hidden h-48">
-                        <img src="https://picsum.photos/id/20/600/400" alt="如何建立个人知识管理系统" class="blog-image w-full h-full object-cover transition-transform duration-500">
+                        <img src="https://picsum.photos/id/20/600/400" alt="如何建立个人知识管理系统" class="blog-image w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                         <div class="absolute top-4 left-4">
                             <span class="px-3 py-1 bg-light text-primary text-xs rounded-full">成长思维</span>
                         </div>
@@ -117,7 +212,7 @@
                 <!-- 博客3 -->
                 <article class="blog-card bg-white rounded-xl overflow-hidden shadow-sm card-hover">
                     <div class="relative overflow-hidden h-48">
-                        <img src="https://picsum.photos/id/48/600/400" alt="从零开始的副业指南" class="blog-image w-full h-full object-cover transition-transform duration-500">
+                        <img src="https://picsum.photos/id/48/600/400" alt="从零开始的副业指南" class="blog-image w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                         <div class="absolute top-4 left-4">
                             <span class="px-3 py-1 bg-light text-primary text-xs rounded-full">创业经验</span>
                         </div>
@@ -139,34 +234,6 @@
                             <div class="flex items-center gap-2">
                                 <img src="https://picsum.photos/id/91/100/100" alt="作者头像" class="w-8 h-8 rounded-full object-cover">
                                 <span class="text-sm font-medium">王强</span>
-                            </div>
-                            <a href="#" class="text-accent text-sm hover:underline">阅读全文 →</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- 新增博客4（遵循原样式） -->
-                <article class="blog-card bg-white rounded-xl overflow-hidden shadow-sm card-hover">
-                    <div class="relative overflow-hidden h-48">
-                        <img src="https://picsum.photos/id/96/600/400" alt="远程工作效率指南" class="blog-image w-full h-full object-cover transition-transform duration-500">
-                        <div class="absolute top-4 left-4">
-                            <span class="px-3 py-1 bg-light text-primary text-xs rounded-full">效率工具</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center text-secondary text-sm mb-3">
-                            <span><i class="fa fa-calendar-o mr-1"></i> 2023-05-28</span>
-                            <span class="mx-2">•</span>
-                            <span><i class="fa fa-eye mr-1"></i> 1.5k</span>
-                        </div>
-                        <h3 class="text-xl font-medium mb-3 line-clamp-2">远程工作效率指南：5个提升专注力的方法</h3>
-                        <p class="text-secondary text-sm mb-4 line-clamp-3">
-                            远程工作容易受到干扰？本文分享经过验证的专注力管理技巧，帮助你在家也能保持高效工作状态，平衡工作与生活...
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-2">
-                                <img src="https://picsum.photos/id/66/100/100" alt="作者头像" class="w-8 h-8 rounded-full object-cover">
-                                <span class="text-sm font-medium">刘洋</span>
                             </div>
                             <a href="#" class="text-accent text-sm hover:underline">阅读全文 →</a>
                         </div>
@@ -212,7 +279,7 @@
             <!-- 工具列表 -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- 工具1：计算器 -->
-                <div class="tool-card bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="tool-card bg-white rounded-xl overflow-hidden shadow-sm card-hover">
                     <div class="p-6">
                         <div class="w-12 h-12 flex items-center justify-center bg-accent-light rounded-lg mb-5">
                             <i class="fa fa-calculator text-accent text-xl"></i>
@@ -244,25 +311,27 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 新增工具2：文本转换器（遵循原样式） -->
-                <div class="tool-card bg-white rounded-xl overflow-hidden shadow-sm">
+                
+                <!-- 工具2：文本转换器 -->
+                <div class="tool-card bg-white rounded-xl overflow-hidden shadow-sm card-hover">
                     <div class="p-6">
                         <div class="w-12 h-12 flex items-center justify-center bg-accent-light rounded-lg mb-5">
                             <i class="fa fa-exchange text-accent text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-medium mb-2">文本格式转换器</h3>
+                        <h3 class="text-xl font-medium mb-2">文本转换器</h3>
                         <p class="text-secondary text-sm mb-5">
-                            快速转换文本格式，支持大小写转换、去除空格和特殊字符清理
+                            轻松转换文本格式，支持大小写转换、JSON格式化等功能
                         </p>
                         
                         <!-- 工具预览 -->
                         <div class="bg-light rounded-lg p-4 mb-5">
-                            <textarea class="bg-white rounded p-3 mb-3 w-full h-16 text-sm" placeholder="输入需要转换的文本..."></textarea>
+                            <div class="bg-white rounded p-3 mb-3 h-16 text-sm overflow-auto">
+                                在这里输入需要转换的文本...
+                            </div>
                             <div class="grid grid-cols-3 gap-2">
-                                <button class="bg-white py-2 rounded text-secondary hover:bg-gray-100 text-sm">大写转换</button>
-                                <button class="bg-white py-2 rounded text-secondary hover:bg-gray-100 text-sm">小写转换</button>
-                                <button class="bg-accent py-2 rounded text-white text-sm">清除格式</button>
+                                <button class="bg-white py-2 rounded text-secondary hover:bg-gray-100 text-xs">大写转小写</button>
+                                <button class="bg-white py-2 rounded text-secondary hover:bg-gray-100 text-xs">小写转大写</button>
+                                <button class="bg-accent py-2 rounded text-white text-xs">JSON格式化</button>
                             </div>
                         </div>
                         
@@ -272,16 +341,233 @@
                             </span>
                             <div class="flex gap-2">
                                 <a href="#" class="btn-secondary text-sm py-2 px-4">使用</a>
-                                <a href="#" class="text-xs text-accent hover:underline">批量版 →</a>
+                                <a href="#" class="text-xs text-accent hover:underline">高级版 →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 工具3：密码生成器 -->
+                <div class="tool-card bg-white rounded-xl overflow-hidden shadow-sm card-hover">
+                    <div class="p-6">
+                        <div class="w-12 h-12 flex items-center justify-center bg-accent-light rounded-lg mb-5">
+                            <i class="fa fa-key text-accent text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-medium mb-2">密码生成器</h3>
+                        <p class="text-secondary text-sm mb-5">
+                            生成高强度随机密码，可自定义长度和字符类型
+                        </p>
+                        
+                        <!-- 工具预览 -->
+                        <div class="bg-light rounded-lg p-4 mb-5">
+                            <div class="bg-white rounded p-3 mb-3 text-center text-sm">
+                                x8#Kp2$Qr7
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="includeNumbers" class="mr-2" checked>
+                                    <label for="includeNumbers" class="text-xs">包含数字</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="includeSymbols" class="mr-2" checked>
+                                    <label for="includeSymbols" class="text-xs">包含符号</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-secondary">
+                                <i class="fa fa-star text-yellow-400"></i> 4.9 (1500+ 评价)
+                            </span>
+                            <div class="flex gap-2">
+                                <a href="#" class="btn-secondary text-sm py-2 px-4">使用</a>
+                                <a href="#" class="text-xs text-accent hover:underline">高级版 →</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- 查看更多工具按钮 -->
+            <div class="text-center mt-12">
+                <a href="#" class="btn-secondary inline-flex items-center">
+                    查看全部工具
+                    <i class="fa fa-arrow-right ml-2"></i>
+                </a>
+            </div>
         </div>
     </section>
 
+    <!-- 数据统计部分 -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-4xl font-light text-accent mb-2" id="userCount">0</div>
+                    <p class="text-secondary">活跃用户</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-light text-accent mb-2" id="toolCount">0</div>
+                    <p class="text-secondary">实用工具</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-light text-accent mb-2" id="articleCount">0</div>
+                    <p class="text-secondary">原创文章</p>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-light text-accent mb-2" id="usageCount">0</div>
+                    <p class="text-secondary">工具使用次数</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-primary text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-medium mb-4">ToolHub</h3>
+                    <p class="text-gray-400 text-sm">
+                        实用工具与深度内容的结合，助你提升工作效率与认知水平
+                    </p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-github"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4">工具</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">计算工具</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">转换工具</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">设计辅助</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">效率工具</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4">内容</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">博客文章</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">教程指南</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">效率方法</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">会员专享</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-medium mb-4">关于</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">关于我们</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">联系我们</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">隐私政策</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">使用条款</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2023 ToolHub. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录模态框 -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md mx-4 overflow-hidden transform transition-all">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-medium">账户登录</h3>
+                    <button id="closeLoginModal" class="text-gray-400 hover:text-gray-500">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">邮箱</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition">
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">密码</label>
+                        <input type="password" id="password" name="password" required
+                            class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition">
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember" class="h-4 w-4 text-accent focus:ring-accent border-gray-300 rounded">
+                            <label for="remember" class="ml-2 block text-sm text-gray-700">记住我</label>
+                        </div>
+                        <a href="#" class="text-sm text-accent hover:underline">忘记密码?</a>
+                    </div>
+                    
+                    <div id="loginError" class="hidden text-red-500 text-sm mt-2"></div>
+                    
+                    <button type="submit" class="w-full btn-primary">登录</button>
+                </form>
+                
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">或使用以下方式登录</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 grid grid-cols-3 gap-3">
+                        <button id="googleLogin" class="flex justify-center items-center py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                            <i class="fa fa-google text-red-500"></i>
+                        </button>
+                        <button id="githubLogin" class="flex justify-center items-center py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                            <i class="fa fa-github text-gray-800"></i>
+                        </button>
+                        <button id="facebookLogin" class="flex justify-center items-center py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                            <i class="fa fa-facebook text-blue-600"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="mt-6 text-center text-sm text-gray-600">
+                    还没有账户? <a href="#" class="text-accent hover:underline">立即注册</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js"></script>
+
     <script>
+        // 替换为你的Firebase配置
+        const firebaseConfig = {
+            apiKey: "AIzaSyAE6M1B9s2e-CqQQUc4x2nqxW5rYnBFTE4",
+            authDomain: "zhixiang-site.firebaseapp.com",
+            projectId: "zhixiang-site",
+            storageBucket: "zhixiang-site.firebasestorage.app",
+            messagingSenderId: "704113981755",
+            appId: "1:704113981755:web:74ab8efdc7d0c158325f1e",
+            measurementId: "G-VEJ4LSYDWV"
+        };
+
+        // 初始化Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
         // 导航栏滚动效果
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
@@ -302,146 +588,206 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // 登录模态框控制
+        // 数字动画效果
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            if (!obj) return;
+            
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                obj.textContent = value.toLocaleString();
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // 检测元素是否在视口中
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom >= 0
+            );
+        }
+
+        // 统计数字动画
+        let statsAnimated = false;
+        window.addEventListener('scroll', function() {
+            if (!statsAnimated && isInViewport(document.getElementById('userCount'))) {
+                animateValue("userCount", 0, 25000, 2000);
+                animateValue("toolCount", 0, 48, 2000);
+                animateValue("articleCount", 0, 156, 2000);
+                animateValue("usageCount", 0, 1250000, 2000);
+                statsAnimated = true;
+            }
+        });
+
+        // 页面加载时检查统计区域
+        window.addEventListener('load', function() {
+            if (isInViewport(document.getElementById('userCount'))) {
+                animateValue("userCount", 0, 25000, 2000);
+                animateValue("toolCount", 0, 48, 2000);
+                animateValue("articleCount", 0, 156, 2000);
+                animateValue("usageCount", 0, 1250000, 2000);
+                statsAnimated = true;
+            }
+        });
+
+        // 登录功能实现
         document.addEventListener('DOMContentLoaded', function() {
             const loginModal = document.getElementById('loginModal');
             const loginButtons = document.querySelectorAll('.login-btn');
             const closeLoginModal = document.getElementById('closeLoginModal');
             const loginForm = document.getElementById('loginForm');
             const loginError = document.getElementById('loginError');
+            const googleLoginBtn = document.getElementById('googleLogin');
+            const githubLoginBtn = document.getElementById('githubLogin');
+            const facebookLoginBtn = document.getElementById('facebookLogin');
             
-            // 检查用户是否已登录
-            const user = localStorage.getItem('user');
-            if (user) {
-                const userData = JSON.parse(user);
-                // 更新登录按钮为用户信息
+            // 监听登录状态变化
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    updateUIForAuthenticatedUser(user);
+                } else {
+                    updateUIForUnauthenticatedUser();
+                }
+            });
+            
+            // 更新已登录用户UI
+            function updateUIForAuthenticatedUser(user) {
                 document.querySelectorAll('.login-btn').forEach(btn => {
-                    btn.innerHTML = `<i class="fa fa-user-circle-o"></i><span>${userData.username}</span>`;
+                    btn.innerHTML = `<i class="fa fa-user-circle-o"></i><span>${user.email.split('@')[0]}</span>`;
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        alert('已登录: ' + user.email);
+                    });
+                });
+            }
+            
+            // 更新未登录用户UI
+            function updateUIForUnauthenticatedUser() {
+                document.querySelectorAll('.login-btn').forEach(btn => {
+                    btn.innerHTML = `<i class="fa fa-sign-in mr-1"></i>登录`;
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        openLoginModal();
+                    });
                 });
             }
             
             // 打开登录模态框
-            loginButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    // 如果已登录，这里可以跳转到用户中心
-                    if (!user) {
-                        loginModal.classList.remove('hidden');
-                        loginModal.classList.add('flex');
-                        document.body.style.overflow = 'hidden';
-                    }
-                });
-            });
+            function openLoginModal() {
+                loginModal.classList.remove('hidden');
+                loginModal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
             
             // 关闭登录模态框
-            closeLoginModal.addEventListener('click', function() {
+            function closeLoginModalFunc() {
                 loginModal.classList.add('hidden');
                 loginModal.classList.remove('flex');
                 document.body.style.overflow = '';
                 loginError.classList.add('hidden');
-            });
+                loginForm.reset();
+            }
+            
+            closeLoginModal.addEventListener('click', closeLoginModalFunc);
             
             // 点击模态框外部关闭
             loginModal.addEventListener('click', function(e) {
                 if (e.target === loginModal) {
-                    closeLoginModal.click();
+                    closeLoginModalFunc();
                 }
             });
             
-            // 登录表单提交
+            // 邮箱密码登录
             loginForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
+                const remember = document.getElementById('remember').checked;
                 
                 try {
-                    // 实际项目中替换为你的后端API地址
-                    const response = await fetch('/api/login', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ email, password }),
-                        credentials: 'include' // 允许跨域请求携带cookie
-                    });
+                    // 设置登录状态持久化
+                    const persistence = remember ? 
+                        firebase.auth.Auth.Persistence.LOCAL : 
+                        firebase.auth.Auth.Persistence.SESSION;
                     
-                    const data = await response.json();
+                    await auth.setPersistence(persistence);
                     
-                    if (!response.ok) {
-                        throw new Error(data.message || '登录失败，请检查账号密码');
+                    // 登录处理
+                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                    closeLoginModalFunc();
+                    alert('登录成功！欢迎回来，' + userCredential.user.email.split('@')[0]);
+                } catch (error) {
+                    // 错误处理
+                    let errorMessage = '登录失败，请检查账号密码';
+                    
+                    switch(error.code) {
+                        case 'auth/user-not-found':
+                            errorMessage = '该邮箱未注册';
+                            break;
+                        case 'auth/wrong-password':
+                            errorMessage = '密码错误';
+                            break;
+                        case 'auth/invalid-email':
+                            errorMessage = '邮箱格式不正确';
+                            break;
+                        case 'auth/too-many-requests':
+                            errorMessage = '尝试次数过多，请稍后再试';
+                            break;
                     }
                     
-                    // 登录成功，保存用户信息到本地存储
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    
-                    // 更新登录按钮显示
-                    document.querySelectorAll('.login-btn').forEach(btn => {
-                        btn.innerHTML = `<i class="fa fa-user-circle-o"></i><span>${data.user.username}</span>`;
-                    });
-                    
-                    // 关闭模态框
-                    closeLoginModal.click();
-                    
-                    // 显示成功提示（可选）
-                    alert('登录成功！');
-                } catch (error) {
-                    loginError.textContent = error.message;
+                    loginError.textContent = errorMessage;
                     loginError.classList.remove('hidden');
                 }
             });
-
-            // 图表初始化
-            const ctx = document.getElementById('previewChart');
-            if (ctx) {
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['1月', '2月', '3月', '4月', '5月'],
-                        datasets: [{
-                            label: '数据趋势',
-                            data: [12, 19, 13, 15, 20],
-                            borderColor: '#0071E3',
-                            backgroundColor: 'rgba(0, 113, 227, 0.1)',
-                            tension: 0.4,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                        scales: {
-                            y: { beginAtZero: true, display: false },
-                            x: { display: false }
-                        }
-                    }
-                });
-            }
-
-            // 新增工具交互 - 保持与原JS风格一致
-            const textConvertButtons = document.querySelectorAll('.tool-card:nth-child(2) button');
-            const textInput = document.querySelector('.tool-card:nth-child(2) textarea');
             
-            if (textConvertButtons.length && textInput) {
-                // 大写转换
-                textConvertButtons[0].addEventListener('click', function() {
-                    textInput.value = textInput.value.toUpperCase();
-                });
-                
-                // 小写转换
-                textConvertButtons[1].addEventListener('click', function() {
-                    textInput.value = textInput.value.toLowerCase();
-                });
-                
-                // 清除格式
-                textConvertButtons[2].addEventListener('click', function() {
-                    textInput.value = textInput.value
-                        .replace(/\s+/g, ' ')
-                        .trim()
-                        .replace(/[^\w\s]/gi, '');
-                });
-            }
+            // Google登录
+            googleLoginBtn.addEventListener('click', async function() {
+                try {
+                    const provider = new firebase.auth.GoogleAuthProvider();
+                    await auth.signInWithPopup(provider);
+                    closeLoginModalFunc();
+                    alert('Google登录成功！');
+                } catch (error) {
+                    loginError.textContent = 'Google登录失败: ' + error.message;
+                    loginError.classList.remove('hidden');
+                }
+            });
+            
+            // GitHub登录
+            githubLoginBtn.addEventListener('click', async function() {
+                try {
+                    const provider = new firebase.auth.GithubAuthProvider();
+                    await auth.signInWithPopup(provider);
+                    closeLoginModalFunc();
+                    alert('GitHub登录成功！');
+                } catch (error) {
+                    loginError.textContent = 'GitHub登录失败: ' + error.message;
+                    loginError.classList.remove('hidden');
+                }
+            });
+            
+            // Facebook登录
+            facebookLoginBtn.addEventListener('click', async function() {
+                try {
+                    const provider = new firebase.auth.FacebookAuthProvider();
+                    await auth.signInWithPopup(provider);
+                    closeLoginModalFunc();
+                    alert('Facebook登录成功！');
+                } catch (error) {
+                    loginError.textContent = 'Facebook登录失败: ' + error.message;
+                    loginError.classList.remove('hidden');
+                }
+            });
         });
     </script>
 </body>
