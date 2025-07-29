@@ -154,6 +154,53 @@
                     <i class="fa fa-times text-xl"></i>
                 </button>
             </div>
+            <!-- 注册模态框 -->
+<div id="registerModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl w-full max-w-lg p-6 md:p-8 shadow-xl">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-2xl font-light">注册</h3>
+      <button id="closeRegisterModal" class="text-secondary hover:text-primary">
+        <i class="fa fa-times text-xl"></i>
+      </button>
+    </div>
+
+    <form id="registerForm" class="space-y-4">
+      <div>
+        <label for="username" class="block text-sm font-medium mb-1">用户名</label>
+        <input type="text" id="username" name="username" required class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:border-accent focus:ring-1 focus:ring-accent">
+        <p id="usernameFeedback" class="text-sm mt-1 text-red-500 hidden">用户名已存在</p>
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium mb-1">邮箱</label>
+        <input type="email" id="registerEmail" name="email" required class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:border-accent focus:ring-1 focus:ring-accent">
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium mb-1">密码</label>
+        <input type="password" id="registerPassword" name="password" required class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:border-accent focus:ring-1 focus:ring-accent">
+      </div>
+
+      <div>
+        <label for="birthdate" class="block text-sm font-medium mb-1">出生年月</label>
+        <input type="date" id="birthdate" name="birthdate" class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:border-accent focus:ring-1 focus:ring-accent">
+      </div>
+
+      <div>
+        <label for="gender" class="block text-sm font-medium mb-1">性别</label>
+        <select id="gender" name="gender" class="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:border-accent focus:ring-1 focus:ring-accent">
+          <option value="男">男</option>
+          <option value="女">女</option>
+          <option value="其他">其他</option>
+        </select>
+      </div>
+
+      <button type="submit" class="w-full btn-primary">立即注册</button>
+      <div class="text-sm text-secondary text-center mt-2">已有账号？ <a href="#" class="text-accent hover:underline login-btn">去登录</a></div>
+      <div id="registerError" class="text-red-500 text-sm mt-2 hidden"></div>
+    </form>
+  </div>
+</div>
             
             <form id="loginForm" class="space-y-5">
                 <div>
@@ -176,7 +223,7 @@
                 </button>
                 
                 <div class="text-center text-sm text-secondary">
-                    还没有账号？ <a href="register.html" class="text-accent hover:underline">立即注册</a>
+                    还没有账号？ <a href="#" class="text-accent hover:underline register-btn">立即注册</a>
                 </div>
             </form>
             
@@ -552,5 +599,101 @@
         });
     </script>
     <script type="module" src="./index-auth.js"></script>
+    <script type="module">
+import { checkUsernameExists, register } from './register-logic.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const registerModal = document.getElementById('registerModal');
+  const openRegisterBtns = document.querySelectorAll('.register-btn');
+  const closeRegisterBtn = document.getElementById('closeRegisterModal');
+  const registerForm = document.getElementById('registerForm');
+  const usernameInput = document.getElementById('username');
+  const usernameFeedback = document.getElementById('usernameFeedback');
+  const registerError = document.getElementById('registerError');
+
+  // 打开注册弹窗
+  openRegisterBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      registerModal.classList.remove('hidden');
+      registerModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // 关闭注册弹窗
+  closeRegisterBtn.addEventListener('click', () => {
+    registerModal.classList.add('hidden');
+    registerModal.classList.remove('flex');
+    document.body.style.overflow = '';
+  });
+
+  // 模态点击背景关闭
+  registerModal.addEventListener('click', e => {
+    if (e.target === registerModal) {
+      closeRegisterBtn.click();
+    }
+  });
+
+  // 检查用户名是否重复
+  usernameInput.addEventListener('blur', async () => {
+    const username = usernameInput.value.trim();
+    if (username) {
+      const exists = await checkUsernameExists(username);
+      if (exists) {
+        usernameFeedback.classList.remove('hidden');
+      } else {
+        usernameFeedback.classList.add('hidden');
+      }
+    }
+  });
+
+  // 提交注册表单
+  registerForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    registerError.classList.add('hidden');
+
+    const username = usernameInput.value.trim();
+    const email = document.getElementById('registerEmail').value.trim();
+    const password = document.getElementById('registerPassword').value;
+    const birthdate = document.getElementById('birthdate').value;
+    const gender = document.getElementById('gender').value;
+
+    try {
+      const exists = await checkUsernameExists(username);
+      if (exists) {
+        usernameFeedback.classList.remove('hidden');
+        return;
+      }
+
+      const cred = await register(email, password, username, {
+        birthdate,
+        gender
+      });
+
+      // 成功：保存信息、关闭弹窗
+      localStorage.setItem('user', JSON.stringify({
+        uid: cred.user.uid,
+        username,
+        email
+      }));
+
+      alert('注册成功！欢迎你 ' + username);
+      closeRegisterBtn.click();
+
+      // 更新所有登录按钮为用户名显示
+      document.querySelectorAll('.login-btn').forEach(btn => {
+        btn.innerHTML = `<i class="fa fa-user-circle-o"></i><span>${username}</span>`;
+      });
+    } catch (err) {
+      registerError.textContent = err.message || '注册失败，请重试';
+      registerError.classList.remove('hidden');
+    }
+  });
+});
+</script>
 </body>
+    <script type="module" src="./firebase-init.js"></script>
+<script type="module" src="./index-auth.js"></script>
+<script type="module" src="./register-logic.js"></script>
 </html>
