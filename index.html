@@ -1,135 +1,30 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>知识 · 工具 · 成长</title>
-    <!-- 引入外部资源（假设已包含Tailwind、FontAwesome等） -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-    
-    <!-- 自定义样式 -->
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .content-auto {
-                content-visibility: auto;
-            }
-            .card-hover {
-                @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
-            }
-            .btn-primary {
-                @apply bg-accent text-white px-6 py-3 rounded-lg hover:bg-accent/90 transition-colors;
-            }
-            .btn-secondary {
-                @apply bg-white text-primary border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors;
-            }
-        }
-        
-        :root {
-            --accent: #0071E3;
-            --primary: #1D2939;
-            --secondary: #667085;
-            --light: #F9FAFB;
-            --premium: #7C3AED;
-        }
-        
-        .bg-accent {
-            background-color: var(--accent);
-        }
-        .bg-accent-light {
-            background-color: rgba(0, 113, 227, 0.1);
-        }
-        .text-accent {
-            color: var(--accent);
-        }
-        .text-primary {
-            color: var(--primary);
-        }
-        .text-secondary {
-            color: var(--secondary);
-        }
-        .bg-light {
-            background-color: var(--light);
-        }
-        .text-premium {
-            color: var(--premium);
-        }
-        .bg-premium\/10 {
-            background-color: rgba(124, 58, 237, 0.1);
-        }
-    </style>
-</head>
-<body class="bg-white text-primary">
-    <!-- 导航栏 -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-40 bg-white/95 transition-all duration-300">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!--  Logo -->
-                <a href="#" class="text-xl font-medium text-accent">
-                    <i class="fa fa-cube mr-2"></i>KnowledgeHub
-                </a>
-                
-                <!-- 桌面端导航 -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#blog" class="text-secondary hover:text-accent transition-colors">博客</a>
-                    <a href="#tools" class="text-secondary hover:text-accent transition-colors">工具</a>
-                    <a href="#" class="text-secondary hover:text-accent transition-colors">关于</a>
-                    <button class="login-btn px-4 py-2 rounded-lg border border-accent text-accent hover:bg-accent hover:text-white transition-colors">
-                        <i class="fa fa-user-circle-o mr-1"></i>登录
-                    </button>
+                    知识 · 工具 · 成长
+                </span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
+                    实用工具与<br class="md:hidden">
+                    <span class="font-medium">深度内容的结合</span>
+                </h1>
+                <p class="text-secondary text-lg md:text-xl text-balance">
+                    探索经过实践验证的工具和方法论，提升你的工作效率与认知水平
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 pt-4">
+                    <a href="#tools" class="btn-primary">
+                        探索工具
+                    </a>
+                    <a href="#blog" class="btn-secondary">
+                        阅读博客
+                    </a>
                 </div>
                 
-                <!-- 移动端菜单按钮 -->
-                <button id="menu-toggle" class="md:hidden text-gray-500 hover:text-gray-700">
-                    <i class="fa fa-bars text-xl"></i>
-                </button>
-            </div>
-        </div>
-        
-        <!-- 移动端菜单 -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
-            <div class="container mx-auto px-4 py-3 space-y-3">
-                <a href="#blog" class="block py-2 text-secondary hover:text-accent">博客</a>
-                <a href="#tools" class="block py-2 text-secondary hover:text-accent">工具</a>
-                <a href="#" class="block py-2 text-secondary hover:text-accent">关于</a>
-                <button class="login-btn w-full py-2 rounded-lg border border-accent text-accent hover:bg-accent hover:text-white transition-colors">
-                    <i class="fa fa-user-circle-o mr-1"></i>登录
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 英雄区域 -->
-    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div class="container mx-auto max-w-6xl text-center">
-            <span class="text-accent font-medium">
-                知识 · 工具 · 成长
-            </span>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-tight">
-                实用工具与<br class="md:hidden">
-                <span class="font-medium">深度内容的结合</span>
-            </h1>
-            <p class="text-secondary text-lg md:text-xl text-balance mt-4">
-                探索经过实践验证的工具和方法论，提升你的工作效率与认知水平
-            </p>
-            <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <a href="#tools" class="btn-primary">
-                    探索工具
-                </a>
-                <a href="#blog" class="btn-secondary">
-                    阅读博客
-                </a>
-            </div>
-            
-            <!-- 信任标识 -->
-            <div class="mt-16">
-                <p class="text-secondary text-sm mb-6">受到以下用户的信任</p>
-                <div class="flex flex-wrap justify-center gap-8 opacity-60">
-                    <span class="text-lg font-medium">创业者</span>
-                    <span class="text-lg font-medium">设计师</span>
-                    <span class="text-lg font-medium">开发者</span>
-                    <span class="text-lg font-medium">学生</span>
+                <!-- 信任标识 -->
+                <div class="mt-16">
+                    <p class="text-secondary text-sm mb-6">受到以下用户的信任</p>
+                    <div class="flex flex-wrap justify-center gap-8 opacity-60">
+                        <span class="text-lg font-medium">创业者</span>
+                        <span class="text-lg font-medium">设计师</span>
+                        <span class="text-lg font-medium">开发者</span>
+                        <span class="text-lg font-medium">学生</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -249,6 +144,34 @@
                         </div>
                     </div>
                 </article>
+
+                <!-- 新增博客4（遵循原样式） -->
+                <article class="blog-card bg-white rounded-xl overflow-hidden shadow-sm card-hover">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="https://picsum.photos/id/96/600/400" alt="远程工作效率指南" class="blog-image w-full h-full object-cover transition-transform duration-500">
+                        <div class="absolute top-4 left-4">
+                            <span class="px-3 py-1 bg-light text-primary text-xs rounded-full">效率工具</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-secondary text-sm mb-3">
+                            <span><i class="fa fa-calendar-o mr-1"></i> 2023-05-28</span>
+                            <span class="mx-2">•</span>
+                            <span><i class="fa fa-eye mr-1"></i> 1.5k</span>
+                        </div>
+                        <h3 class="text-xl font-medium mb-3 line-clamp-2">远程工作效率指南：5个提升专注力的方法</h3>
+                        <p class="text-secondary text-sm mb-4 line-clamp-3">
+                            远程工作容易受到干扰？本文分享经过验证的专注力管理技巧，帮助你在家也能保持高效工作状态，平衡工作与生活...
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-2">
+                                <img src="https://picsum.photos/id/66/100/100" alt="作者头像" class="w-8 h-8 rounded-full object-cover">
+                                <span class="text-sm font-medium">刘洋</span>
+                            </div>
+                            <a href="#" class="text-accent text-sm hover:underline">阅读全文 →</a>
+                        </div>
+                    </div>
+                </article>
             </div>
             
             <!-- 广告位 -->
@@ -321,44 +244,42 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 新增工具2：文本转换器（遵循原样式） -->
+                <div class="tool-card bg-white rounded-xl overflow-hidden shadow-sm">
+                    <div class="p-6">
+                        <div class="w-12 h-12 flex items-center justify-center bg-accent-light rounded-lg mb-5">
+                            <i class="fa fa-exchange text-accent text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-medium mb-2">文本格式转换器</h3>
+                        <p class="text-secondary text-sm mb-5">
+                            快速转换文本格式，支持大小写转换、去除空格和特殊字符清理
+                        </p>
+                        
+                        <!-- 工具预览 -->
+                        <div class="bg-light rounded-lg p-4 mb-5">
+                            <textarea class="bg-white rounded p-3 mb-3 w-full h-16 text-sm" placeholder="输入需要转换的文本..."></textarea>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button class="bg-white py-2 rounded text-secondary hover:bg-gray-100 text-sm">大写转换</button>
+                                <button class="bg-white py-2 rounded text-secondary hover:bg-gray-100 text-sm">小写转换</button>
+                                <button class="bg-accent py-2 rounded text-white text-sm">清除格式</button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-secondary">
+                                <i class="fa fa-star text-yellow-400"></i> 4.6 (850+ 评价)
+                            </span>
+                            <div class="flex gap-2">
+                                <a href="#" class="btn-secondary text-sm py-2 px-4">使用</a>
+                                <a href="#" class="text-xs text-accent hover:underline">批量版 →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- 登录模态框（新增完整结构） -->
-    <div id="loginModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4 transform transition-all">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-medium">登录</h3>
-                <button id="closeLoginModal" class="text-gray-500 hover:text-gray-700">
-                    <i class="fa fa-times text-xl"></i>
-                </button>
-            </div>
-            
-            <form id="loginForm">
-                <div class="mb-4">
-                    <label for="email" class="block text-sm mb-1 text-secondary">邮箱</label>
-                    <input type="email" id="email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition" required>
-                </div>
-                <div class="mb-4">
-                    <label for="password" class="block text-sm mb-1 text-secondary">密码</label>
-                    <input type="password" id="password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition" required>
-                </div>
-                <p id="loginError" class="text-red-500 text-sm mb-4 hidden">登录错误提示</p>
-                <div class="flex justify-between items-center mb-4">
-                    <label class="flex items-center text-sm text-secondary">
-                        <input type="checkbox" class="mr-2"> 记住我
-                    </label>
-                    <a href="#" class="text-sm text-accent hover:underline">忘记密码？</a>
-                </div>
-                <button type="submit" class="w-full bg-accent text-white py-2.5 rounded-md hover:bg-accent/90 transition-colors">登录</button>
-            </form>
-            
-            <div class="mt-4 text-center text-sm text-secondary">
-                还没有账号？<a href="#" class="text-accent hover:underline">立即注册</a>
-            </div>
-        </div>
-    </div>
 
     <script>
         // 导航栏滚动效果
@@ -395,7 +316,7 @@
                 const userData = JSON.parse(user);
                 // 更新登录按钮为用户信息
                 document.querySelectorAll('.login-btn').forEach(btn => {
-                    btn.innerHTML = `<i class="fa fa-user-circle-o mr-1"></i><span>${userData.username}</span>`;
+                    btn.innerHTML = `<i class="fa fa-user-circle-o"></i><span>${userData.username}</span>`;
                 });
             }
             
@@ -456,7 +377,7 @@
                     
                     // 更新登录按钮显示
                     document.querySelectorAll('.login-btn').forEach(btn => {
-                        btn.innerHTML = `<i class="fa fa-user-circle-o mr-1"></i><span>${data.user.username}</span>`;
+                        btn.innerHTML = `<i class="fa fa-user-circle-o"></i><span>${data.user.username}</span>`;
                     });
                     
                     // 关闭模态框
@@ -470,7 +391,7 @@
                 }
             });
 
-            // 图表初始化（如果页面中有图表元素）
+            // 图表初始化
             const ctx = document.getElementById('previewChart');
             if (ctx) {
                 new Chart(ctx, {
@@ -495,6 +416,30 @@
                             x: { display: false }
                         }
                     }
+                });
+            }
+
+            // 新增工具交互 - 保持与原JS风格一致
+            const textConvertButtons = document.querySelectorAll('.tool-card:nth-child(2) button');
+            const textInput = document.querySelector('.tool-card:nth-child(2) textarea');
+            
+            if (textConvertButtons.length && textInput) {
+                // 大写转换
+                textConvertButtons[0].addEventListener('click', function() {
+                    textInput.value = textInput.value.toUpperCase();
+                });
+                
+                // 小写转换
+                textConvertButtons[1].addEventListener('click', function() {
+                    textInput.value = textInput.value.toLowerCase();
+                });
+                
+                // 清除格式
+                textConvertButtons[2].addEventListener('click', function() {
+                    textInput.value = textInput.value
+                        .replace(/\s+/g, ' ')
+                        .trim()
+                        .replace(/[^\w\s]/gi, '');
                 });
             }
         });
