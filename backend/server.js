@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path'); // 引入path模块处理文件路径
 const { getBlogPosts, getBlogCategories, getBlogPostBySlug } = require('./notion-api');
 
 // 加载环境变量
@@ -11,14 +12,37 @@ const PORT = process.env.PORT || 3000;
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 // 中间件配置
-// 精确CORS配置，只允许前端域名访问
+// 1. 静态资源服务（优先配置，确保前端资源正确加载）
+app.use(express.static(path.join(__dirname, '../public'), {
+  // 配置静态资源的MIME类型
+  setHeaders: (res, filePath) => {
+    // 处理JavaScript文件
+    if (filePath.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript; charset=UTF-8');
+    }
+    // 处理CSS文件
+    if (filePath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css; charset=UTF-8');
+    }
+    // 处理JSON文件
+    if (filePath.endsWith('.json')) {
+      res.setHeader('Content-Type', 'application/json; charset=UTF-8');
+    }
+  },
+  // 缓存控制（开发环境禁用缓存，生产环境设置合理缓存）
+  maxAge: isDevelopment ? 0 : '1d'
+}));
+
+// 2. CORS配置
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5500',
   methods: ['GET'],
   allowedHeaders: ['Content-Type']
 }));
 
+// 3. 请求体解析
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // 健康检查接口
 app.get('/api/health', (req, res) => {
@@ -109,12 +133,31 @@ app.get('/api/blog/posts/:slug', async (req, res) => {
   }
 });
 
-// 404处理
+// 404处理（所有未匹配的路由）
 app.use((req, res) => {
-  res.status(404).json({
-    error: '接口不存在',
-    requestedPath: req.path,
-    hint: '请检查请求路径是否正确，可访问/api/blog查看可用接口'
+  // 判断请求的是API还是静态资源
+  if (req.path.startsWith('/api/')) {
+    res.status(404).json({
+      error: '接口不存在',
+      requestedPath: req.path,
+      hint: '请检查请求路径是否正确，可访问/api/blog查看可用接口'
+    });
+  } else {
+    // 静态资源不存在时返回404页面（如果有）
+    res.status(404).sendFile(path.join(__dirname, '../public/404.html'), (err) => {
+      if (err) {
+        res.status(404).json({ error: '资源不存在', requestedPath: req.path });
+      }
+    });
+  }
+});
+
+// 错误处理中间件
+app.use((err, req, res, next) => {
+  console.error('服务器错误:', err.stack);
+  res.status(500).json({
+    error: '服务器内部错误',
+    message: isDevelopment ? err.message : '请稍后重试'
   });
 });
 
@@ -123,4 +166,5 @@ app.listen(PORT, () => {
   console.log(`[${new Date().toISOString()}] 服务器运行在 http://localhost:${PORT}`);
   console.log(`环境: ${isDevelopment ? '开发' : '生产'}`);
   console.log(`允许的前端域名: ${process.env.FRONTEND_URL || 'http://localhost:5500'}`);
+  console.log(`静态资源目录: ${path.join(__dirname, '../public')}`);
 });
