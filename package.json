@@ -34,6 +34,4 @@
   }
 }
 
-//使用时，你需要安装新增的依赖
-// npm install morgan
-// npm install --save-dev eslint husky
+
